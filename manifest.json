@@ -1,0 +1,24 @@
+{
+    "manifest_version" : 2,
+    "name" : "tiebaAutoSign",
+    "description" : "Auto sign baidu tie ba",
+    "version" : "1.0",
+	"page_action" : {
+		"default_title" : "TiebaAutoSign",
+		"default_icon" : "icon.png",
+		"default_popup" : "popup.html"
+	},
+	"background" : {
+		"scripts" : ["event_script.js"],
+		"persistent" : false
+	},
+	"permissions" : [
+		"activeTab"
+	],
+	"content_scripts" : [
+		{
+			"matches" : ["*://tieba.baidu.com/*"],
+			"js" : ["content_script.js"]
+		}
+	]
+}
