@@ -31,7 +31,13 @@ function clickSignBtn() {
 function changeToUserLogin() {
 	var userLoginBtn = document.getElementsByClassName('tang-pass-footerBarULogin pass-link').item(0);
 	userLoginBtn.click();
-	window.setTimeout(function() {chrome.runtime.sendMessage({"type":"login"}, handleResponse)}, 1000);
+	sendLoginRequest(1000);
+}
+
+function sendLoginRequest(waittime){
+	window.setTimeout(function() {
+		chrome.runtime.sendMessage({"type":"login"}, handleResponse)
+	}, waittime);
 }
 
 
@@ -43,6 +49,18 @@ function checkSignStatus() {
 	}else{
 		clickSignBtn();
 	}
+}
+
+function logoutUser(callback) {
+	var logOutBtn = document.querySelector("li.u_logout");
+	logOutBtn.firstElementChild.click()
+	window.setTimeout(function() {
+		var switchLoginBtn = document.querySelector('span.switch_login');
+		switchLoginBtn.click()
+		if (callback) {
+			callback();
+		}
+	}, 1000);
 }
 
 function loginUser(name, passwd) {
@@ -61,6 +79,10 @@ function handleResponse(responseObj) {
 		window.location = responseObj.url;
 	}else if (responseObj.type === "login") {
 		loginUser(responseObj.user.name, responseObj.user.passwd);
+	}else if(responseObj.type === "changeUser"){
+		logoutUser(function() {
+			window.setTimeout(changeToUserLogin, 1000);
+		});
 	}
 }
 
