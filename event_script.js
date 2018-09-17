@@ -1,10 +1,6 @@
 
 var interstedBarNames = ["混沌大学", "喜马拉雅", "樊登读书会", "刘润", "超级个体", "得到app"];
-var userInfos = [{ "name": "rxqn666", "passwd": "w(x8GY#(" },
-{ "name": "a374427627", "passwd": "eL_s9x6t" },
-{ "name": "zmjnpu", "passwd": "5\\Gf&5z5" },
-{ "name": "fm8du1", "passwd": "NB{Pe/3t" },
-{ "name": "sa6uu3", "passwd": "Y4sg)4su" }];
+var userInfos = [];
 
 var userIndex = 0;
 var tiebaIndex = 0;
