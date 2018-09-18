@@ -1,15 +1,24 @@
 
-var interstedBarNames = ["混沌大学", "喜马拉雅", "樊登读书会", "刘润", "超级个体", "得到app"];
-var userInfos = [{"name":"", "passwd":""},
-{"name":"", "passwd":""}];
+var tiebaList;
+var userList;
+
 
 var userIndex = 0;
 var tiebaIndex = 0;
 var opened = false;
 
+chrome.runtime.onInstalled.addListener(function() {
+	chrome.storage.local.get('userList', function (result) {
+		userList = result.userList;
+	});
+	chrome.storage.local.get('tiebaList', function (result) {
+		tiebaList = result.tiebaList;
+	});
+});
+
 function openNextBaResponse() {
 	return {"type" : "openNextTieBa",
-	"url" : "https://tieba.baidu.com/f?ie=utf-8&kw=" + interstedBarNames[tiebaIndex]};
+	"url" : "https://tieba.baidu.com/f?ie=utf-8&kw=" + tiebaList[tiebaIndex].name};
 }
 
 function changeUserResponse() {
@@ -23,7 +32,7 @@ function doneResponse() {
 
 function loginInfoResponse() {
 	return {"type" : "login",
-			"user" : userInfos[userIndex]};
+			"user" : userList[userIndex]};
 }
 //Show Page-Action using the onMessage event
 chrome.runtime.onMessage.addListener(function (requestMessage, sender, sendResponse) {
@@ -33,7 +42,7 @@ chrome.runtime.onMessage.addListener(function (requestMessage, sender, sendRespo
 			chrome.pageAction.show(sender.tab.id);
 			opened = true;
 		}
-		if (tiebaIndex == interstedBarNames.length) {
+		if (tiebaIndex == tiebaList.length) {
 			tiebaIndex = 0;
 			sendResponse(changeUserResponse());
 		}else{
@@ -41,7 +50,7 @@ chrome.runtime.onMessage.addListener(function (requestMessage, sender, sendRespo
 			tiebaIndex++;
 		}
 	}else if (requestMessage.type === "login"){
-		if (userIndex == userInfos.length){
+		if (userIndex == userList.length){
 			sendResponse(doneResponse());
 		}else{
 			sendResponse(loginInfoResponse());

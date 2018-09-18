@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="options.js"></script>
+</head>
+
+<body>
+    <form name="auto sign options" id="options">
+        <h1>贴吧自动登录选项</h1>
+        <fieldset>
+            <legend>自动登录用户列表</legend>
+            <ul id="userList">
+                <li id="userInput">
+                    <label>
+                        <div>用户名:</div>
+                        <input type="text" required id="userNameInput">
+                    </label>
+                    <label>
+                        <div>密码:</div>
+                        <input type="password" required id="userPassWdInput">
+                    </label>
+                    <button id="addUserButton" type="button">添加</button>
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>自动登录贴吧列表</legend>
+            <ul id="tiebaList">
+                <li id="tiebaInput">
+                    <label>
+                        <div>贴吧名称</div>
+                        <input type="text" id="TieBaNameInput">
+                    </label>
+                    <button id="addBaBottun" type="button">添加</button>
+                </li>
+            </ul>
+        </fieldset>
+
+    </form>
+</body>
+
+</html>
