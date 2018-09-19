@@ -11,20 +11,57 @@ function onLoad(f) {
 onLoad.loaded = false;
 onLoad(function() {onLoad.loaded = true;});
 
+function getCurrentDate() {
+	var dateObj = new Date();
+	var month = dateObj.getUTCMonth() + 1; //months from 1-12
+	var day = dateObj.getUTCDate();
+	var year = dateObj.getUTCFullYear();
+
+	newdate = year + "/" + month + "/" + day;
+	return newdate;
+}
+
 function readUserList() {
     chrome.storage.local.get('userList', function (result) {
         userList = result.userList;
 
-        var userUL = document.getElementById('signList');
-
+        let userUL = document.getElementById('signList');
+        let currentDate = getCurrentDate(); 
         userList.forEach(user => {
             var li = document.createElement('li');
             li.textContent = user.name;
-            var progressBar = document.createElement('progress');
-            li.appendChild(progressBar);
-
+            var signedCheck = document.createElement('input');
+            signedCheck.type = "checkbox";
+            signedCheck.addEventListener('click', function(){
+                updateUser(user.name, signedCheck.checked);
+            });
+            li.appendChild(signedCheck);
             userUL.appendChild(li);
+            if (user.signedDate === currentDate) {
+                signedCheck.checked = true;
+            }
         });
+    });
+}
+
+function updateUser(name, signed) {
+    userList.forEach(user => {
+        if (user.name === name) {
+            if (signed) {
+                user.signedDate = getCurrentDate();
+            }else{
+                user.signedDate = null;
+            }
+        }
+    });
+    saveUserList();
+}
+
+function saveUserList() {
+    chrome.storage.local.set({
+        "userList": userList
+    }, function () {
+        console.log("user saved");
     });
 }
 
