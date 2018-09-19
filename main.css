@@ -1,0 +1,9 @@
+li.tieba {
+    display: inline-block;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+button.delete {
+    padding-left: 0.5rem;
+}

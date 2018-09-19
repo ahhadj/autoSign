@@ -250,13 +250,16 @@ function deleteItem(e) {
 
 function insertDisplayItem(itemName, index, tag) {
     let listElement = document.getElementById(tag + "List");
-    const newUser = createElement('li', itemName);
+    const newitem = createElement('li', itemName);
     const deleteButton = createElement('button', "删除");
-
+    if (tag === 'tieba') {
+        newitem.classList.add('tieba');
+    }
     deleteButton.id = tag + "#" + index;
     deleteButton.type = "button";
     deleteButton.addEventListener('click', deleteItem);
-    newUser.appendChild(deleteButton);
+    deleteButton.classList.add('delete');
+    newitem.appendChild(deleteButton);
     let inputItem = document.getElementById(tag + "Input");
-    listElement.insertBefore(newUser, inputItem);
+    listElement.insertBefore(newitem, inputItem);
 }
