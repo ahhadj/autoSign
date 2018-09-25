@@ -13,9 +13,9 @@ onLoad(function() {onLoad.loaded = true;});
 
 function getCurrentDate() {
 	var dateObj = new Date();
-	var month = dateObj.getUTCMonth() + 1; //months from 1-12
-	var day = dateObj.getUTCDate();
-	var year = dateObj.getUTCFullYear();
+	var month = dateObj.getMonth() + 1; //months from 1-12
+	var day = dateObj.getDate();
+	var year = dateObj.getFullYear();
 
 	newdate = year + "/" + month + "/" + day;
 	return newdate;
