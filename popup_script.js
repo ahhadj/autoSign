@@ -1,4 +1,5 @@
 var userList;
+var switchBtn;
 
 function onLoad(f) {
 	if (onLoad.loaded) {
@@ -67,3 +68,21 @@ function saveUserList() {
 
 onLoad(readUserList);
 
+function onOffSwitch() {
+    switchBtn = document.getElementById('onOffSwitch');
+    switchBtn.addEventListener('click', function() {
+        chrome.runtime.sendMessage({'type':'switchOnOff'}, handleResponse);
+    });
+}
+
+onLoad(onOffSwitch);
+
+function handleResponse(responseObj) {
+    if (responseObj.type === 'switch') {
+        if (!responseObj.isOn) {
+            switchBtn.textContent = "开启";
+        }else{
+            switchBtn.textContent = "停止";
+        }
+    }
+}

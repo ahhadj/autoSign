@@ -2,6 +2,7 @@ var tiebaList;
 var userList;
 var signUserList;
 var currentUser;
+var isOn = false;
 
 
 var userIndex = 0;
@@ -75,6 +76,13 @@ function loginInfoResponse() {
 //Show Page-Action using the onMessage event
 chrome.runtime.onMessage.addListener(function (requestMessage, sender, sendResponse) {
 	console.log("requestMessage: " + requestMessage.data);
+	if (requestMessage.type === 'switchOnOff') {
+		isOn = !isOn;
+		sendResponse({type: "switch", isOn: isOn});
+	}
+	if (!isOn) {
+		return;
+	}
 	if (requestMessage.type === "openNext") {
 		if (tiebaIndex == tiebaList.length) {
 			tiebaIndex = 0;
