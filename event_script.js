@@ -1,6 +1,6 @@
-var tiebaList;
-var userList;
-var signUserList;
+var tiebaList = [];
+var userList = [];
+var signUserList = [];
 var currentUser;
 var isOn = false;
 
