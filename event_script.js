@@ -9,11 +9,11 @@ var userIndex = 0;
 var tiebaIndex = 0;
 
 function saveUserList() {
-    chrome.storage.local.set({
-        "userList": userList
-    }, function () {
-        console.log("user saved");
-    });
+	chrome.storage.local.set({
+		"userList": userList
+	}, function () {
+		console.log("user saved");
+	});
 }
 
 chrome.runtime.onInstalled.addListener(function () {
@@ -43,8 +43,10 @@ function getCurrentDate() {
 }
 
 function updateUser() {
-	currentUser.signedDate = getCurrentDate();
-	saveUserList();
+	if (currentUser) {
+		currentUser.signedDate = getCurrentDate();
+		saveUserList();
+	}
 }
 
 function openNextBaResponse() {
@@ -78,7 +80,7 @@ chrome.runtime.onMessage.addListener(function (requestMessage, sender, sendRespo
 	console.log("requestMessage: " + requestMessage.data);
 	if (requestMessage.type === 'switchOnOff') {
 		isOn = !isOn;
-		sendResponse({type: "switch", isOn: isOn});
+		sendResponse({ type: "switch", isOn: isOn });
 	}
 	if (!isOn) {
 		return;
